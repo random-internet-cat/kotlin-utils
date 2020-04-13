@@ -2,6 +2,9 @@ plugins {
     kotlin("jvm") version "1.3.71"
 }
 
+// Must always be updated along with plugins block
+val kotlinVersion = "1.3.71"
+
 group = "io.github.random-internet-cat"
 version = "1.0.0-SNAPSHOT"
 
@@ -10,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib-jdk8", kotlinVersion))
 }
 
 tasks {
