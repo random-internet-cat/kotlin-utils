@@ -6,7 +6,7 @@ plugins {
 val kotlinVersion = "1.3.71"
 
 group = "io.github.random-internet-cat"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
