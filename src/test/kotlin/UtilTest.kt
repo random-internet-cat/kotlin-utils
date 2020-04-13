@@ -1,4 +1,4 @@
-import org.agoranomic.assessor.lib.util.*
+import io.github.random_internet_cat.util.*
 import test_util.assertSucceeds
 import java.math.BigDecimal
 import java.math.BigInteger

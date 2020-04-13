@@ -1,4 +1,4 @@
-package org.agoranomic.assessor.lib.util
+package io.github.random_internet_cat.util
 
 /**
  * Returns a [Set] containing all elements that appear more than once in this [Iterable].

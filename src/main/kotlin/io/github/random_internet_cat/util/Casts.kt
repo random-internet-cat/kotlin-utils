@@ -1,4 +1,4 @@
-package org.agoranomic.assessor.lib.util
+package io.github.random_internet_cat.util
 
 /**
  * Returns this object, except with a nullable type (if it wasn't already).
