@@ -15,6 +15,18 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8", kotlinVersion))
+
+    testImplementation(kotlin("test", kotlinVersion))
+    testImplementation(kotlin("test-junit5", kotlinVersion))
+    testImplementation(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.6.1")
+}
+
+tasks.test {
+    useJUnitPlatform()
+
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 tasks {
