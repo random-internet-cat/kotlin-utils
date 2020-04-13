@@ -6,7 +6,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.Test
 
-class `Exhaustive Enum tests` {
+class ExhaustiveEnumTests {
     private enum class TestEnum {
         First, Second
     }

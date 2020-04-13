@@ -3,7 +3,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.Test
 
-class `getOrFail tests` {
+class GetOrFailTests {
     @Test
     fun `returns correct value`() {
         val map = mapOf(1 to "hi", 2 to "bye")

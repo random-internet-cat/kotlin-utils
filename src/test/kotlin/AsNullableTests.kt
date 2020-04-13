@@ -2,7 +2,7 @@ import io.github.random_internet_cat.util.asNullable
 import kotlin.test.assertSame
 import kotlin.test.Test
 
-class `asNullable tests` {
+class AsNullableTests {
     @Test
     fun `returns same object`() {
         val str = "Hi!"

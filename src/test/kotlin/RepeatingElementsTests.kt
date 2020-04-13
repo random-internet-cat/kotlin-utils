@@ -2,7 +2,7 @@ import io.github.random_internet_cat.util.repeatingElements
 import kotlin.test.assertEquals
 import kotlin.test.Test
 
-class `repeatingElements tests` {
+class RepeatingElementsTests {
     @Test
     fun `returns empty set for list without repeating elements`() {
         assertEquals(emptySet(), listOf(1, 2, 3).repeatingElements())

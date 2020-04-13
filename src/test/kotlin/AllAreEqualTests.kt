@@ -6,7 +6,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.Test
 
-class `all are equal tests` {
+class AllAreEqualTests {
     @Test
     fun `allAreEqual returns true for empty collection`() {
         assertTrue(emptyList<String>().allAreEqual())

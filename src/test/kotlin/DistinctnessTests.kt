@@ -6,7 +6,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.Test
 
-class `allAreDistinct tests` {
+class DistinctnessTests {
     @Test
     fun `allAreDistinct returns true for set with all distinct`() {
         val list = listOf(1, 2, 3, 4)

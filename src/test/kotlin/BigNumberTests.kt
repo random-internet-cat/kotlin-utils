@@ -7,7 +7,7 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import kotlin.test.Test
 
-class `BigDecimal util tests` {
+class BigDecimalMathTests {
     @Test
     fun `addition works`() {
         val bd = BigDecimal.valueOf(5)!!
@@ -52,7 +52,7 @@ class `BigDecimal util tests` {
     }
 }
 
-class `ceil tests` {
+class BigDecimalCeilTests {
     @Test
     fun `ceil(BigDecimal) works`() {
         class CeilTestCase(val input: String, val result: String)
