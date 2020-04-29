@@ -64,6 +64,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8", kotlinVersion))
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.2")
 
     testImplementation(kotlin("test", kotlinVersion))
     testImplementation(kotlin("test-junit5", kotlinVersion))
