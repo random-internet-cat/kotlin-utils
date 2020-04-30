@@ -118,3 +118,33 @@ private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private 
         return this.impl.selectEquality().hashCode()
     }
 }
+
+/**
+ * Returns an [ExhaustiveEnumMap] that contains the same keys and values as this map. Throws [IllegalArgumentException]
+ * if this map's keys do not include all of the enumerators of [K].
+ *
+ * @param K the key type of the map, which must be an enum type
+ * @param V the value type of the map
+ * @param enumClass the reified type of [K]
+ */
+fun <K : Enum<K>, V> Map<K, V>.toExhaustiveEnumMap(enumClass: KClass<K>): ExhaustiveEnumMap<K, V> {
+    return ExhaustiveEnumMapImpl.from(enumClass, this)
+}
+
+/**
+ * Returns an [ExhaustiveEnumMap] that contains the same keys and values as this map. Throws [IllegalArgumentException]
+ * if this map's keys do not include all of the enumerators of [K].
+ *
+ * @param K the key type of the map, which must be an enum type
+ * @param V the value type of the map
+ */
+inline fun <reified K : Enum<K>, V> Map<K, V>.toExhaustiveEnumMap() = toExhaustiveEnumMap(K::class)
+
+/**
+ * Returns an [ExhaustiveEnumMap] that contains the key-value pairs from the array [pairs]. Throws
+ * [IllegalArgumentException] if the keys do not include all of the enumerators of [K].
+ *
+ * @param K the key type of the map, which must be an enum type
+ * @param V the value type of the map
+ */
+inline fun <reified K : Enum<K>, V> exhaustiveEnumMapOf(vararg pairs: Pair<K, V>) = pairs.toMap().toExhaustiveEnumMap()
