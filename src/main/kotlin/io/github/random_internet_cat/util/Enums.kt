@@ -1,5 +1,7 @@
 package io.github.random_internet_cat.util
 
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.toImmutableMap
 import kotlin.reflect.KClass
 
 /**
@@ -67,4 +69,52 @@ interface ExhaustiveEnumMap<K : Enum<K>, V> : Map<K, V> {
      * has a value for each key as an invariant.
      */
     override fun get(key: K): V
+}
+
+private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private val impl: ImmutableMap<K, V>) : ExhaustiveEnumMap<K, V> {
+    companion object {
+        fun <K : Enum<K>, V> from(enumClass: KClass<K>, map: Map<K, V>): ExhaustiveEnumMapImpl<K, V> {
+            map.keys.requireExhaustive(enumClass)
+            return ExhaustiveEnumMapImpl(map.toImmutableMap())
+        }
+
+        inline fun <reified K : Enum<K>, V> from(map: Map<K, V>) = from(K::class, map)
+
+        // Just defer equality/hashCode to default map implementation, which is basically guaranteed to be correct.
+        private fun <K, V> Map<K, V>.selectEquality() = this.toMap()
+    }
+
+    override val entries: Set<Map.Entry<K, V>>
+        get() = impl.entries
+
+    override val keys: Set<K>
+        get() = impl.keys
+
+    override val size: Int
+        get() = impl.size
+
+    override val values: Collection<V>
+        get() = impl.values
+
+    override fun get(key: K): V {
+        check(impl.containsKey(key))
+        return impl[key] as V
+    }
+
+    override fun containsKey(key: K): Boolean = impl.containsKey(key)
+
+    override fun containsValue(value: V): Boolean = impl.containsValue(value)
+
+    override fun isEmpty(): Boolean = impl.isEmpty()
+
+    override fun equals(other: Any?): Boolean {
+        // Because of the Map contract, we only care if the other is a map, not an ExhaustiveEnumMap.
+        if (other !is Map<*, *>) return false
+
+        return this.impl.selectEquality() == other.selectEquality()
+    }
+
+    override fun hashCode(): Int {
+        return this.impl.selectEquality().hashCode()
+    }
 }
