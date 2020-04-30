@@ -57,3 +57,14 @@ fun <E : Enum<E>> Collection<E>.requireExhaustive(enumClass: KClass<E>) {
  * @param E the enum type
  */
 inline fun <reified E : Enum<E>> Collection<E>.requireExhaustive() = requireExhaustive(E::class)
+
+/**
+ * A map that, as an invariant, has one entry for each enumerator of [K].
+ */
+interface ExhaustiveEnumMap<K : Enum<K>, V> : Map<K, V> {
+    /**
+     * Returns the value corresponding to the given [key]. Does not return `null` as a default value, because this map
+     * has a value for each key as an invariant.
+     */
+    override fun get(key: K): V
+}
