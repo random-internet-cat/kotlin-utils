@@ -142,9 +142,22 @@ inline fun <reified K : Enum<K>, V> Map<K, V>.toExhaustiveEnumMap() = toExhausti
 
 /**
  * Returns an [ExhaustiveEnumMap] that contains the key-value pairs from the array [pairs]. Throws
- * [IllegalArgumentException] if the keys do not include all of the enumerators of [K].
+ * [IllegalArgumentException] if the keys do not include all of the enumerators of [K] exactly once.
  *
  * @param K the key type of the map, which must be an enum type
  * @param V the value type of the map
  */
-inline fun <reified K : Enum<K>, V> exhaustiveEnumMapOf(vararg pairs: Pair<K, V>) = pairs.toMap().toExhaustiveEnumMap()
+inline fun <reified K : Enum<K>, V> Iterable<Pair<K, V>>.toExhaustiveEnumMap(): ExhaustiveEnumMap<K, V> {
+    val list = this.toList()
+    list.map { it.first }.requireAllAreDistinct()
+    return list.toMap().toExhaustiveEnumMap()
+}
+
+/**
+ * Returns an [ExhaustiveEnumMap] that contains the key-value pairs from the array [pairs]. Throws
+ * [IllegalArgumentException] if the keys do not include all of the enumerators of [K] exactly once.
+ *
+ * @param K the key type of the map, which must be an enum type
+ * @param V the value type of the map
+ */
+inline fun <reified K : Enum<K>, V> exhaustiveEnumMapOf(vararg pairs: Pair<K, V>) = pairs.asList().toExhaustiveEnumMap()
