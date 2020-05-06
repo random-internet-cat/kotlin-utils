@@ -77,6 +77,12 @@ class ExhahustiveEnumMapTests {
                 assertTrue(testMap.containsValue(value))
             }
         }
+
+        for (first in testMaps) {
+            for (second in testMaps) {
+                assertEqualsAndHashCode(first, second)
+            }
+        }
     }
 
     @Test
