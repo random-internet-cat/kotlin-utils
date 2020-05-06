@@ -123,6 +123,10 @@ class ExhahustiveEnumMapTests {
     @Test
     fun `toExhaustiveEnumMap throws IllegalArgumentException if keys are not exhaustive`() {
         assertThrows<IllegalArgumentException> {
+            listOf<Pair<TestEnum, Int>>().toExhaustiveEnumMap()
+        }
+
+        assertThrows<IllegalArgumentException> {
             mapOf<TestEnum, Int>().toExhaustiveEnumMap()
         }
 
@@ -131,7 +135,15 @@ class ExhahustiveEnumMapTests {
         }
 
         assertThrows<IllegalArgumentException> {
+            listOf(TestEnum.FIRST to 1).toExhaustiveEnumMap()
+        }
+
+        assertThrows<IllegalArgumentException> {
             mapOf(TestEnum.SECOND to 2).toExhaustiveEnumMap()
+        }
+
+        assertThrows<IllegalArgumentException> {
+            listOf(TestEnum.SECOND to 2).toExhaustiveEnumMap()
         }
     }
 
