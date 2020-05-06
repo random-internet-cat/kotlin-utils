@@ -1,7 +1,4 @@
-import io.github.random_internet_cat.util.exhaustiveEnumMapOf
-import io.github.random_internet_cat.util.isExhaustive
-import io.github.random_internet_cat.util.requireExhaustive
-import io.github.random_internet_cat.util.toExhaustiveEnumMap
+import io.github.random_internet_cat.util.*
 import org.junit.jupiter.api.assertThrows
 import test_util.assertEqualsAndHashCode
 import test_util.assertSucceeds
@@ -58,7 +55,8 @@ class ExhahustiveEnumMapTests {
     fun `exhaustiveEnumMapOf and toExhaustiveEnumMap provide maps that work`() {
         val testMaps = listOf(
             exhaustiveEnumMapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 2),
-            mapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 2).toExhaustiveEnumMap()
+            mapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 2).toExhaustiveEnumMap(),
+            listOf(TestEnum.FIRST to 1, TestEnum.SECOND to 2).toExhaustiveEnumMap()
         )
 
         for (testMap in testMaps) {
@@ -143,7 +141,8 @@ class ExhahustiveEnumMapTests {
     fun `ExhaustiveEnumMap works with empty enums`() {
         val testMaps = listOf(
             exhaustiveEnumMapOf<EmptyEnum, Int>(),
-            mapOf<EmptyEnum, Int>().toExhaustiveEnumMap()
+            mapOf<EmptyEnum, Int>().toExhaustiveEnumMap(),
+            listOf<Pair<EmptyEnum, Int>>().toExhaustiveEnumMap()
         )
 
         for (testMap in testMaps) {
