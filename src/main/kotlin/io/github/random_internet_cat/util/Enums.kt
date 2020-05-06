@@ -141,7 +141,7 @@ fun <K : Enum<K>, V> Map<K, V>.toExhaustiveEnumMap(enumClass: KClass<K>): Exhaus
 inline fun <reified K : Enum<K>, V> Map<K, V>.toExhaustiveEnumMap() = toExhaustiveEnumMap(K::class)
 
 /**
- * Returns an [ExhaustiveEnumMap] that contains the key-value pairs from the array [pairs]. Throws
+ * Returns an [ExhaustiveEnumMap] that contains the key-value pairs from this iterable. Throws
  * [IllegalArgumentException] if the keys do not include all of the enumerators of [K] exactly once.
  *
  * @param K the key type of the map, which must be an enum type
