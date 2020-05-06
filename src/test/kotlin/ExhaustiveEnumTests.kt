@@ -86,6 +86,14 @@ class ExhahustiveEnumMapTests {
     }
 
     @Test
+    fun `ExhaustiveEnumMap compares unequal to different map`() {
+        val first = exhaustiveEnumMapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 1)
+        val second = exhaustiveEnumMapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 2)
+
+        assertNotEquals(first, second)
+    }
+
+    @Test
     fun `ExhaustiveEnumMap compares equal to Map with same values`() {
         val exhaustiveMap = exhaustiveEnumMapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 1)
         val normalMap = mapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 1)
