@@ -107,6 +107,10 @@ private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private 
 
     override fun isEmpty(): Boolean = impl.isEmpty()
 
+    override fun toString(): String {
+        return impl.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         // Because of the Map contract, we only care if the other is a map, not an ExhaustiveEnumMap.
         if (other !is Map<*, *>) return false
