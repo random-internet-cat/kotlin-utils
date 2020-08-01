@@ -121,6 +121,28 @@ class ExhahustiveEnumMapTests {
     }
 
     @Test
+    fun `exhaustiveEnumMapOf throws IllegalArgumentException if keys are duplicated`() {
+        assertThrows<IllegalArgumentException> {
+            exhaustiveEnumMapOf(TestEnum.FIRST to 1, TestEnum.FIRST to 1)
+        }
+
+        assertThrows<IllegalArgumentException> {
+            exhaustiveEnumMapOf(TestEnum.FIRST to 1, TestEnum.SECOND to 1, TestEnum.FIRST to 1)
+        }
+    }
+
+    @Test
+    fun `toExhaustiveEnumMap throws IllegalArgumentException if keys are duplicated`() {
+        assertThrows<IllegalArgumentException> {
+            listOf(TestEnum.FIRST to 1, TestEnum.FIRST to 1).toExhaustiveEnumMap()
+        }
+
+        assertThrows<IllegalArgumentException> {
+            listOf(TestEnum.FIRST to 1, TestEnum.SECOND to 1, TestEnum.FIRST to 1).toExhaustiveEnumMap()
+        }
+    }
+
+    @Test
     fun `toExhaustiveEnumMap throws IllegalArgumentException if keys are not exhaustive`() {
         assertThrows<IllegalArgumentException> {
             listOf<Pair<TestEnum, Int>>().toExhaustiveEnumMap()
