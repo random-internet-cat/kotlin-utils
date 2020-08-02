@@ -20,22 +20,40 @@ fun <T> Iterable<T>.repeatingElements(): Set<T> {
     return duplicates
 }
 
+private inline fun <T, K> Iterable<T>.checkDistinctByImpl(
+    selector: (T) -> K,
+    onRepeat: (item: T, key: K) -> Unit
+): Set<K> {
+    val alreadySeenKeys = mutableSetOf<K>()
+
+    for (item in this) {
+        val key = selector(item)
+
+        if (alreadySeenKeys.contains(key)) {
+            onRepeat(item, key)
+        }
+
+        alreadySeenKeys += key
+    }
+
+    return alreadySeenKeys
+}
+
+private inline fun <T> Iterable<T>.checkDistinctImpl(onRepeat: (item: T) -> Unit): Set<T> {
+    return checkDistinctByImpl(
+        selector = { it },
+        onRepeat = { item, _ -> onRepeat(item) }
+    )
+}
+
 /**
  * Returns a [Set] containing the same elements as this [Collection], if this [Collection] contains no repeating
  * elements, otherwise throws [IllegalArgumentException].
  */
 fun <T> Iterable<T>.toSetCheckingDistinct(): Set<T> {
-    val alreadySeen = mutableSetOf<T>()
-
-    for (item in this) {
-        require(!alreadySeen.contains(item)) {
-            "Expected all elements to be distinct, but found repeating element: $item"
-        }
-
-        alreadySeen += item
-    }
-
-    return alreadySeen
+    return checkDistinctImpl(onRepeat = {
+        throw IllegalArgumentException("Expected all elements to be distinct, but found repeating element: $it")
+    })
 }
 
 /**
@@ -44,12 +62,7 @@ fun <T> Iterable<T>.toSetCheckingDistinct(): Set<T> {
  * @param T the element type of this [Iterable]
  */
 fun <T> Iterable<T>.allAreDistinct(): Boolean {
-    val alreadySeen = mutableSetOf<T>()
-
-    for (item in this) {
-        if (alreadySeen.contains(item)) return false
-        alreadySeen += item
-    }
+    checkDistinctImpl(onRepeat = { return false })
 
     return true
 }
@@ -73,13 +86,10 @@ fun <T> Iterable<T>.requireAllAreDistinct() {
  * @param selector the function to map elements to keys
  */
 fun <T, K> Iterable<T>.allAreDistinctBy(selector: (T) -> K): Boolean {
-    val alreadySeen = mutableSetOf<K>()
-
-    for (item in this) {
-        val key = selector(item)
-        if (alreadySeen.contains(key)) return false
-        alreadySeen += key
-    }
+    checkDistinctByImpl(
+        selector = selector,
+        onRepeat = { _, _ -> return false }
+    )
 
     return true
 }
@@ -93,17 +103,14 @@ fun <T, K> Iterable<T>.allAreDistinctBy(selector: (T) -> K): Boolean {
  * @param selector the function to map elements to keys
  */
 fun <T, K> Iterable<T>.requireAllAreDistinctBy(selector: (T) -> K) {
-    val alreadySeen = mutableSetOf<K>()
-
-    for (item in this) {
-        val key = selector(item)
-
-        require(!alreadySeen.contains(key)) {
-            "Expected all elements to be distinct, but found repeating key: $key (from element $item)"
+    checkDistinctByImpl(
+        selector = selector,
+        onRepeat = { item, key ->
+            throw IllegalArgumentException(
+                "Expected all elements to be distinct, but found repeating key: $key (from element $item)"
+            )
         }
-
-        alreadySeen += key
-    }
+    )
 }
 
 /**
