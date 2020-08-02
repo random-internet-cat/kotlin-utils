@@ -114,33 +114,33 @@ fun <T, K> Iterable<T>.requireAllAreDistinctBy(selector: (T) -> K) {
 }
 
 /**
- * Returns `true` if all elements in this [Collection] are equal, and `false` otherwise.
+ * Returns `true` if all elements in this [Iterable] are equal, and `false` otherwise.
  *
  * In particular, returns `true` for an empty collection.
  *
- * @param T the element type of this collection
+ * @param T the element type of this iterable
  */
-fun <T> Collection<T>.allAreEqual(): Boolean {
-    if (isEmpty()) return true
-    if (size == 1) return true
+fun <T> Iterable<T>.allAreEqual(): Boolean {
+    val iter = iterator()
+    if (!iter.hasNext()) return true
 
-    val value = first()
+    val value = iter.next()
 
-    for (element in this) {
-        if (value != element) return false
+    while (iter.hasNext()) {
+        if (value != iter.next()) return false
     }
 
     return true
 }
 
 /**
- * Throws [IllegalArgumentException] if all elements in this [Collection] are not equal.
+ * Throws [IllegalArgumentException] if all elements in this [Iterable] are not equal.
  *
  * In particular, does not throw for an empty collection.
  *
- * @param T the element type of this collection
+ * @param T the element type of this iterable
  */
-fun <T> Collection<T>.requireAllAreEqual() {
+fun <T> Iterable<T>.requireAllAreEqual() {
     require(allAreEqual()) {
         "Expected all elements in collection $this to be equal"
     }
