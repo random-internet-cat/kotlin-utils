@@ -98,6 +98,8 @@ private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private 
 
     override fun get(key: K): V {
         check(impl.containsKey(key))
+
+        @Suppress("UNCHECKED_CAST")
         return impl[key] as V
     }
 
