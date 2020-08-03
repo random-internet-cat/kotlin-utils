@@ -5,42 +5,42 @@ import kotlin.test.*
 
 class DistinctnessTests {
     @Test
-    fun `allAreDistinct returns true for set with all distinct`() {
+    fun `isDistinct returns true for set with all distinct`() {
         val list = listOf(1, 2, 3, 4)
-        assertTrue(list.allAreDistinct())
+        assertTrue(list.isDistinct())
     }
 
     @Test
-    fun `allAreDistinct returns false for set with not all distinct`() {
+    fun `isDistinct returns false for set with not all distinct`() {
         val list = listOf(1, 1, 2, 3)
-        assertFalse(list.allAreDistinct())
+        assertFalse(list.isDistinct())
     }
 
     @Test
-    fun `allAreDistinctBy returns true for set with all selected keys distinct`() {
+    fun `isDistinctBy returns true for set with all selected keys distinct`() {
         val list = listOf("Alice", "Bob", "Charlie")
-        assertTrue(list.allAreDistinctBy { it[0] })
+        assertTrue(list.isDistinctBy { it[0] })
     }
 
     @Test
-    fun `allAreDistinctBy returns false for set with not all selected keys distinct`() {
+    fun `isDistinctBy returns false for set with not all selected keys distinct`() {
         val list = listOf("Alice", "Adam", "Bob", "Charlie")
-        assertFalse(list.allAreDistinctBy { it[0] })
+        assertFalse(list.isDistinctBy { it[0] })
     }
 
     @Test
-    fun `requireAllAreDistinct does not throw for list with all distinct`() {
+    fun `requireDistinct does not throw for list with all distinct`() {
         val list = listOf(1, 2, 3)
 
         assertSucceeds {
-            list.requireAllAreDistinct()
+            list.requireDistinct()
         }
     }
 
     @Test
-    fun `requireAllAreDistinct throws for list with not all distinct`() {
+    fun `requireDistinct throws for list with not all distinct`() {
         val list = listOf(1, 1, 2, 3)
-        assertFailsWith<IllegalArgumentException> { list.requireAllAreDistinct() }
+        assertFailsWith<IllegalArgumentException> { list.requireDistinct() }
     }
 
     @Test
@@ -56,17 +56,17 @@ class DistinctnessTests {
     }
 
     @Test
-    fun `requireAllAreDistinctBy does not throw for list with all selected keys distinct`() {
+    fun `requireDistinctBy does not throw for list with all selected keys distinct`() {
         val list = listOf("Alice", "Bob", "Charlie")
 
         assertSucceeds {
-            list.requireAllAreDistinctBy { it[0] }
+            list.requireDistinctBy { it[0] }
         }
     }
 
     @Test
-    fun `requireAllAreDistinctBy does throws for list with not all selected keys distinct`() {
+    fun `requireDistinctBy does throws for list with not all selected keys distinct`() {
         val list = listOf("Alice", "Adam", "Bob", "Charlie")
-        assertFailsWith<IllegalArgumentException> { list.requireAllAreDistinctBy { it[0] } }
+        assertFailsWith<IllegalArgumentException> { list.requireDistinctBy { it[0] } }
     }
 }

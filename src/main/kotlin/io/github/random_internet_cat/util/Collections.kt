@@ -61,21 +61,29 @@ fun <T> Iterable<T>.toSetCheckingDistinct(): Set<T> {
  *
  * @param T the element type of this [Iterable]
  */
-fun <T> Iterable<T>.allAreDistinct(): Boolean {
+fun <T> Iterable<T>.isDistinct(): Boolean {
     checkDistinctImpl(onRepeat = { return false })
 
     return true
 }
+
+@Suppress("NOTHING_TO_INLINE")
+@Deprecated("use isDistinct instead", ReplaceWith("isDistinct()"))
+inline fun <T> Iterable<T>.allAreDistinct() = isDistinct()
 
 /**
  * Throws an [IllegalArgumentException] if this [Iterable] has any elements that appear more than once.
  *
  * @param T the element type of this [Iterable]
  */
-fun <T> Iterable<T>.requireAllAreDistinct() {
+fun <T> Iterable<T>.requireDistinct() {
     // This will do the distinct checking for us, so we can just throw away the result
     toSetCheckingDistinct()
 }
+
+@Suppress("NOTHING_TO_INLINE")
+@Deprecated("use requireDistinct instead", ReplaceWith("requireDistinct()"))
+inline fun <T> Iterable<T>.requireAllAreDistinct() = requireDistinct()
 
 /**
  * Returns `true` if this [Iterable] has no elements such that results of [selector] are the same, and `false`
@@ -85,7 +93,7 @@ fun <T> Iterable<T>.requireAllAreDistinct() {
  * @param K the result type of [selector]
  * @param selector the function to map elements to keys
  */
-fun <T, K> Iterable<T>.allAreDistinctBy(selector: (T) -> K): Boolean {
+fun <T, K> Iterable<T>.isDistinctBy(selector: (T) -> K): Boolean {
     checkDistinctByImpl(
         selector = selector,
         onRepeat = { _, _ -> return false }
@@ -93,6 +101,10 @@ fun <T, K> Iterable<T>.allAreDistinctBy(selector: (T) -> K): Boolean {
 
     return true
 }
+
+@Suppress("NOTHING_TO_INLINE")
+@Deprecated("use isDistinctBy instead", ReplaceWith("isDistinctBy(selector)"))
+inline fun <T, K> Iterable<T>.allAreDistinctBy(noinline selector: (T) -> K): Boolean = isDistinctBy(selector)
 
 /**
  * Throws an [IllegalArgumentException] if this [Iterable] has two elements such that results of [selector] are the
@@ -102,7 +114,7 @@ fun <T, K> Iterable<T>.allAreDistinctBy(selector: (T) -> K): Boolean {
  * @param K the result type of [selector]
  * @param selector the function to map elements to keys
  */
-fun <T, K> Iterable<T>.requireAllAreDistinctBy(selector: (T) -> K) {
+fun <T, K> Iterable<T>.requireDistinctBy(selector: (T) -> K) {
     checkDistinctByImpl(
         selector = selector,
         onRepeat = { item, key ->
@@ -112,6 +124,10 @@ fun <T, K> Iterable<T>.requireAllAreDistinctBy(selector: (T) -> K) {
         }
     )
 }
+
+@Suppress("NOTHING_TO_INLINE")
+@Deprecated("use requireDistinctBy instead", ReplaceWith("requireDistinctBy(selector)"))
+inline fun <T, K> Iterable<T>.requireAllAreDistinctBy(noinline selector: (T) -> K) = requireDistinctBy(selector)
 
 /**
  * Returns `true` if all elements in this [Iterable] are equal, and `false` otherwise.
