@@ -153,7 +153,7 @@ inline fun <reified K : Enum<K>, V> Map<K, V>.toExhaustiveEnumMap() = toExhausti
  */
 inline fun <reified K : Enum<K>, V> Iterable<Pair<K, V>>.toExhaustiveEnumMap(): ExhaustiveEnumMap<K, V> {
     val list = this.toList()
-    list.map { it.first }.requireAllAreDistinct()
+    list.requireDistinctBy { it.first }
     return list.toMap().toExhaustiveEnumMap()
 }
 
