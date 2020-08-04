@@ -31,9 +31,9 @@ private inline fun <T, K> Iterable<T>.checkDistinctByImpl(
 
         if (alreadySeenKeys.contains(key)) {
             onRepeat(item, key)
+        } else {
+            alreadySeenKeys += key
         }
-
-        alreadySeenKeys += key
     }
 
     return alreadySeenKeys
