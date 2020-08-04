@@ -9,7 +9,7 @@ import kotlin.test.assertTrue
 class BigDecimalMathTests {
     @Test
     fun `addition works`() {
-        val bd = BigDecimal.valueOf(5)!!
+        val bd = BigDecimal.valueOf(5)
         val i = 2
 
         assertEquals(BigDecimal.valueOf(7), bd + i)
@@ -18,7 +18,7 @@ class BigDecimalMathTests {
 
     @Test
     fun `subtraction works`() {
-        val bd = BigDecimal.valueOf(5)!!
+        val bd = BigDecimal.valueOf(5)
         val i = 2
 
         assertEquals(BigDecimal.valueOf(3), bd - i)
@@ -27,7 +27,7 @@ class BigDecimalMathTests {
 
     @Test
     fun `multiplication works`() {
-        val bd = BigDecimal.valueOf(5)!!
+        val bd = BigDecimal.valueOf(5)
         val i = 2
 
         assertEquals(BigDecimal.TEN, bd * i)
@@ -37,7 +37,7 @@ class BigDecimalMathTests {
     @Test
     fun `comparison works`() {
         val i = 1
-        val bd = BigDecimal.valueOf(5)!!
+        val bd = BigDecimal.valueOf(5)
 
         assertTrue(i < bd)
         assertTrue(i <= bd)
