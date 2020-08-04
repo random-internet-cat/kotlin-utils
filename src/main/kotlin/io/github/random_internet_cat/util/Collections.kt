@@ -1,17 +1,5 @@
 package io.github.random_internet_cat.util
 
-/**
- * Returns a [Set] containing all elements that appear more than once in this [Iterable].
- *
- * @param T the element type of this [Iterable]
- */
-fun <T> Iterable<T>.repeatingElements(): Set<T> {
-    val duplicates = mutableSetOf<T>()
-    checkDistinctImpl(onRepeat = { duplicates += it })
-
-    return duplicates
-}
-
 private inline fun <T, K> Iterable<T>.checkDistinctByImpl(
     selector: (T) -> K,
     onRepeat: (item: T, key: K) -> Unit
@@ -36,6 +24,18 @@ private inline fun <T> Iterable<T>.checkDistinctImpl(onRepeat: (item: T) -> Unit
         selector = { it },
         onRepeat = { item, _ -> onRepeat(item) }
     )
+}
+
+/**
+ * Returns a [Set] containing all elements that appear more than once in this [Iterable].
+ *
+ * @param T the element type of this [Iterable]
+ */
+fun <T> Iterable<T>.repeatingElements(): Set<T> {
+    val duplicates = mutableSetOf<T>()
+    checkDistinctImpl(onRepeat = { duplicates += it })
+
+    return duplicates
 }
 
 /**
