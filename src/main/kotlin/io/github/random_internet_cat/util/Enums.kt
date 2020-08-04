@@ -71,7 +71,8 @@ interface ExhaustiveEnumMap<K : Enum<K>, V> : Map<K, V> {
     override fun get(key: K): V
 }
 
-private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private val impl: ImmutableMap<K, V>) : ExhaustiveEnumMap<K, V> {
+private class ExhaustiveEnumMapImpl<K : Enum<K>, V>
+private constructor(private val impl: ImmutableMap<K, V>) : ExhaustiveEnumMap<K, V>, Map<K, V> by impl {
     companion object {
         fun <K : Enum<K>, V> from(enumClass: KClass<K>, map: Map<K, V>): ExhaustiveEnumMapImpl<K, V> {
             map.keys.requireExhaustive(enumClass)
@@ -79,22 +80,7 @@ private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private 
         }
 
         inline fun <reified K : Enum<K>, V> from(map: Map<K, V>) = from(K::class, map)
-
-        // Just defer equality/hashCode to default map implementation, which is basically guaranteed to be correct.
-        private fun <K, V> Map<K, V>.selectEquality() = this.toMap()
     }
-
-    override val entries: Set<Map.Entry<K, V>>
-        get() = impl.entries
-
-    override val keys: Set<K>
-        get() = impl.keys
-
-    override val size: Int
-        get() = impl.size
-
-    override val values: Collection<V>
-        get() = impl.values
 
     override fun get(key: K): V {
         check(impl.containsKey(key))
@@ -103,25 +89,20 @@ private class ExhaustiveEnumMapImpl<K : Enum<K>, V> private constructor(private 
         return impl[key] as V
     }
 
-    override fun containsKey(key: K): Boolean = impl.containsKey(key)
-
-    override fun containsValue(value: V): Boolean = impl.containsValue(value)
-
-    override fun isEmpty(): Boolean = impl.isEmpty()
-
     override fun toString(): String {
         return impl.toString()
     }
 
     override fun equals(other: Any?): Boolean {
-        // Because of the Map contract, we only care if the other is a map, not an ExhaustiveEnumMap.
-        if (other !is Map<*, *>) return false
+        // Because of the Map contract, we only care if the other is a map, not an ExhaustiveEnumMap. This means that we
+        // can just trust the implementation. If the use passes us a bad map, they deserve what they get.
 
-        return this.impl.selectEquality() == other.selectEquality()
+        @Suppress("ReplaceCallWithBinaryOperator") // using an explicit equals is more clear about forwarding
+        return impl.equals(other)
     }
 
     override fun hashCode(): Int {
-        return this.impl.selectEquality().hashCode()
+        return impl.hashCode()
     }
 }
 
