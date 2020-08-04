@@ -1,11 +1,10 @@
 import io.github.random_internet_cat.util.*
 import java.math.BigDecimal
 import java.math.BigInteger
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertSame
 import kotlin.test.assertTrue
-import kotlin.test.Test
 
 class BigDecimalMathTests {
     @Test

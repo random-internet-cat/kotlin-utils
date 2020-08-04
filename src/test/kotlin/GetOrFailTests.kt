@@ -1,7 +1,7 @@
 import io.github.random_internet_cat.util.getOrFail
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.Test
 
 class GetOrFailTests {
     @Test

@@ -1,10 +1,10 @@
 import io.github.random_internet_cat.util.allAreEqual
 import io.github.random_internet_cat.util.requireAllAreEqual
 import test_util.assertSucceeds
+import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import kotlin.test.Test
 
 class AllAreEqualTests {
     @Test

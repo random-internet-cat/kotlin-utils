@@ -1,4 +1,7 @@
-import io.github.random_internet_cat.util.*
+import io.github.random_internet_cat.util.exhaustiveEnumMapOf
+import io.github.random_internet_cat.util.isExhaustive
+import io.github.random_internet_cat.util.requireExhaustive
+import io.github.random_internet_cat.util.toExhaustiveEnumMap
 import org.junit.jupiter.api.assertThrows
 import test_util.assertEqualsAndHashCode
 import test_util.assertSucceeds

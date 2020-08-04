@@ -1,6 +1,6 @@
 import io.github.random_internet_cat.util.repeatingElements
-import kotlin.test.assertEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class RepeatingElementsTests {
     @Test

@@ -1,6 +1,6 @@
 import io.github.random_internet_cat.util.asNullable
-import kotlin.test.assertSame
 import kotlin.test.Test
+import kotlin.test.assertSame
 
 class AsNullableTests {
     @Test
