@@ -1,4 +1,5 @@
-import io.github.random_internet_cat.util.*
+package io.github.random_internet_cat.util
+
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.test.Test

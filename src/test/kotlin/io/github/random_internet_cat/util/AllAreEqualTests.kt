@@ -1,6 +1,6 @@
-import io.github.random_internet_cat.util.allAreEqual
-import io.github.random_internet_cat.util.requireAllAreEqual
-import test_util.assertSucceeds
+package io.github.random_internet_cat.util
+
+import io.github.random_internet_cat.util.test_util.assertSucceeds
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse

@@ -1,10 +1,8 @@
-import io.github.random_internet_cat.util.exhaustiveEnumMapOf
-import io.github.random_internet_cat.util.isExhaustive
-import io.github.random_internet_cat.util.requireExhaustive
-import io.github.random_internet_cat.util.toExhaustiveEnumMap
+package io.github.random_internet_cat.util
+
+import io.github.random_internet_cat.util.test_util.assertEqualsAndHashCode
+import io.github.random_internet_cat.util.test_util.assertSucceeds
 import org.junit.jupiter.api.assertThrows
-import test_util.assertEqualsAndHashCode
-import test_util.assertSucceeds
 import kotlin.test.*
 
 class ExhaustiveEnumTests {

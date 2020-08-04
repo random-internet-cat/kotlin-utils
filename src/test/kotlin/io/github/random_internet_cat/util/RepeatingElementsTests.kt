@@ -1,4 +1,5 @@
-import io.github.random_internet_cat.util.repeatingElements
+package io.github.random_internet_cat.util
+
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

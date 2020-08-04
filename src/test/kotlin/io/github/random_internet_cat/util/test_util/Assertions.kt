@@ -1,4 +1,4 @@
-package test_util
+package io.github.random_internet_cat.util.test_util
 
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
