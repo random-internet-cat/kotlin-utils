@@ -6,16 +6,8 @@ package io.github.random_internet_cat.util
  * @param T the element type of this [Iterable]
  */
 fun <T> Iterable<T>.repeatingElements(): Set<T> {
-    val alreadySeen = mutableSetOf<T>()
     val duplicates = mutableSetOf<T>()
-
-    for (element in this) {
-        if (alreadySeen.contains(element)) {
-            duplicates += element
-        } else {
-            alreadySeen += element
-        }
-    }
+    checkDistinctImpl(onRepeat = { duplicates += it })
 
     return duplicates
 }
