@@ -1,11 +1,11 @@
 plugins {
-    kotlin("jvm") version "1.3.71"
+    kotlin("jvm") version "1.4.0"
     id("maven-publish")
     id("com.jfrog.bintray") version "1.8.5"
 }
 
 // Must always be updated along with plugins block
-val kotlinVersion = "1.3.71"
+val kotlinVersion = "1.4.0"
 
 group = "io.github.random-internet-cat"
 version = "1.2.0-SNAPSHOT"
@@ -63,7 +63,6 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", kotlinVersion))
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.2")
 
     testImplementation(kotlin("test", kotlinVersion))
