@@ -1,6 +1,6 @@
-package io.github.random_internet_cat.util
+package org.randomcat.util
 
-import io.github.random_internet_cat.util.test_util.assertSucceeds
+import org.randomcat.util.test_util.assertSucceeds
 import kotlin.test.*
 
 class DistinctnessTests {

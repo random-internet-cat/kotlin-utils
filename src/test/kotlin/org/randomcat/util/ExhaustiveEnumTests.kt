@@ -1,8 +1,8 @@
-package io.github.random_internet_cat.util
+package org.randomcat.util
 
-import io.github.random_internet_cat.util.test_util.assertEqualsAndHashCode
-import io.github.random_internet_cat.util.test_util.assertSucceeds
 import org.junit.jupiter.api.assertThrows
+import org.randomcat.util.test_util.assertEqualsAndHashCode
+import org.randomcat.util.test_util.assertSucceeds
 import kotlin.test.*
 
 class ExhaustiveEnumTests {

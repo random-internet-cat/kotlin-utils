@@ -1,4 +1,4 @@
-package io.github.random_internet_cat.util
+package org.randomcat.util
 
 import kotlin.test.Test
 import kotlin.test.assertSame
