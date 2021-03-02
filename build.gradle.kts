@@ -1,11 +1,8 @@
 plugins {
-    kotlin("jvm") version "1.4.0"
+    kotlin("jvm") version "1.4.30"
     id("maven-publish")
     id("com.jfrog.bintray") version "1.8.5"
 }
-
-// Must always be updated along with plugins block
-val kotlinVersion = "1.4.0"
 
 group = "io.github.random-internet-cat"
 version = "2.0.0-SNAPSHOT"
@@ -63,10 +60,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.3")
 
-    testImplementation(kotlin("test", kotlinVersion))
-    testImplementation(kotlin("test-junit5", kotlinVersion))
+    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit5"))
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.6.1")
 }
 
