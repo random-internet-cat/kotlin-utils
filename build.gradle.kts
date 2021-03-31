@@ -56,11 +56,10 @@ bintray {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
 
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
