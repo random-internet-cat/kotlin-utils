@@ -42,11 +42,9 @@ fun <T> Iterable<T>.repeatingElements(): Set<T> {
  * Returns a [Set] containing the same elements as this [Collection], if this [Collection] contains no repeating
  * elements, otherwise throws [IllegalArgumentException].
  */
-fun <T> Iterable<T>.toSetCheckingDistinct(): Set<T> {
-    return checkDistinctImpl(onRepeat = {
-        throw IllegalArgumentException("Expected all elements to be distinct, but found repeating element: $it")
-    })
-}
+@Suppress("NOTHING_TO_INLINE")
+@Deprecated("use requireDistinct instead", ReplaceWith("this.requireDistinct()"))
+inline fun <T> Iterable<T>.toSetCheckingDistinct(): Set<T> = requireDistinct()
 
 /**
  * Returns `true` if this [Iterable] does not contain any repeating elements, and `false` otherwise.
@@ -64,13 +62,13 @@ fun <T> Iterable<T>.isDistinct(): Boolean {
 inline fun <T> Iterable<T>.allAreDistinct() = isDistinct()
 
 /**
- * Throws an [IllegalArgumentException] if this [Iterable] has any elements that appear more than once.
- *
- * @param T the element type of this [Iterable]
+ * Returns a [Set] containing the same elements as this [Collection], if this [Collection] contains no repeating
+ * elements, otherwise throws [IllegalArgumentException].
  */
-fun <T> Iterable<T>.requireDistinct() {
-    // This will do the distinct checking for us, so we can just throw away the result
-    toSetCheckingDistinct()
+fun <T> Iterable<T>.requireDistinct(): Set<T> {
+    return checkDistinctImpl(onRepeat = {
+        throw IllegalArgumentException("Expected all elements to be distinct, but found repeating element: $it")
+    })
 }
 
 @Suppress("NOTHING_TO_INLINE")

@@ -29,30 +29,15 @@ class DistinctnessTests {
     }
 
     @Test
-    fun `requireDistinct does not throw for list with all distinct`() {
+    fun `requireDistinct returns set for list with all distinct`() {
         val list = listOf(1, 2, 3)
-
-        assertSucceeds {
-            list.requireDistinct()
-        }
+        assertEquals(setOf(1, 2, 3), list.requireDistinct())
     }
 
     @Test
     fun `requireDistinct throws for list with not all distinct`() {
         val list = listOf(1, 1, 2, 3)
         assertFailsWith<IllegalArgumentException> { list.requireDistinct() }
-    }
-
-    @Test
-    fun `toSetCheckingDistinct returns set for list with all distinct`() {
-        val list = listOf(1, 2, 3)
-        assertEquals(setOf(1, 2, 3), list.toSetCheckingDistinct())
-    }
-
-    @Test
-    fun `toSetCheckingDistinct throws for list with not all distinct`() {
-        val list = listOf(1, 1, 2, 3)
-        assertFailsWith<IllegalArgumentException> { list.toSetCheckingDistinct() }
     }
 
     @Test
