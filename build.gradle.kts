@@ -8,7 +8,7 @@ plugins {
 val kotlinVersion = "1.4.0"
 
 group = "io.github.random-internet-cat"
-version = "1.2.0-SNAPSHOT"
+version = "2.0.0-SNAPSHOT"
 
 val bintrayRepo = "kotlin-utils"
 
