@@ -1,58 +1,11 @@
 plugins {
     kotlin("jvm") version "1.4.30"
-    id("maven-publish")
-    id("com.jfrog.bintray") version "1.8.5"
+    `maven-publish`
+    signing
 }
 
-group = "io.github.random-internet-cat"
+group = "org.randomcat"
 version = "2.0.0-SNAPSHOT"
-
-val bintrayRepo = "kotlin-utils"
-
-val artifactName = project.name
-val artifactGroup = project.group.toString()
-val artifactVersion = project.version.toString()
-
-val githubUrl = "https://github.com/random-internet-cat/kotlin-utils"
-val licenseName = "MIT"
-
-val sourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets.getByName("main").allSource)
-}
-
-val mavenPublicationName = "maven-publication"
-
-publishing {
-    publications {
-        create<MavenPublication>(mavenPublicationName) {
-            groupId = artifactGroup
-            artifactId = artifactName
-            version = artifactVersion
-            from(components["kotlin"])
-
-            artifact(sourcesJar)
-        }
-    }
-}
-
-bintray {
-    user = project.findProperty("bintrayUser").toString()
-    key = project.findProperty("bintrayKey").toString()
-
-    pkg.apply {
-        repo = bintrayRepo
-        name = artifactName
-        vcsUrl = githubUrl
-
-        setLicenses(licenseName)
-        setPublications(mavenPublicationName)
-
-        version.apply {
-            name = artifactVersion
-        }
-    }
-}
 
 repositories {
     mavenCentral()
@@ -81,4 +34,70 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
+}
+
+configure<JavaPluginExtension> {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        val main by creating(MavenPublication::class) {
+            from(components["java"])
+
+            pom {
+                name.set("kotlin-utils")
+                description.set("A collection of utilities for the Kotlin programming language.")
+                url.set("https://github.com/randomnetcat/kotlin-utils/")
+
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("randomnetcat")
+                        name.set("Jason Cobb")
+                        email.set("dev@randomcat.org")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git@github.com:randomnetcat/kotlin-utils.git")
+                    developerConnection.set("scm:git:git@github.com:randomnetcat/kotlin-utils.git")
+                    url.set("https://github.com/randomnetcat/kotlin-utils/")
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "OSSRH"
+            setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+
+            credentials {
+                val ossrhUsername: String? by project
+                val ossrhPassword: String? by project
+
+                username = ossrhUsername ?: return@credentials
+                password = ossrhPassword ?: return@credentials
+            }
+        }
+    }
+}
+
+signing {
+    run {
+        val key = System.getenv("SIGNING_KEY") ?: return@run
+        val password = System.getenv("SIGNING_PASSWORD") ?: return@run
+
+        useInMemoryPgpKeys(key, password)
+    }
+
+    sign(publishing.publications)
 }
