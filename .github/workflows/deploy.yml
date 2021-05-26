@@ -1,12 +1,9 @@
-# This workflow will build a Java project with Gradle
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
-
 name: Publish to Maven Central
 
 on: [ workflow_dispatch ]
 
 jobs:
-  build:
+  publish:
 
     runs-on: ubuntu-latest
 
@@ -25,5 +22,5 @@ jobs:
       - name: Publish
         run: ./gradlew publish -PossrhUsername=${{ secrets.DEPLOY_OSSRH_USERNAME }} -PossrhPassword=${{ secrets.DEPLOY_OSSRH_PASSWORD }}
         env:
-          SIGNING_KEY: ${{ secrets.DEPLOY_SIGNING_KEY }}
-          SIGNING_PASSWORD: ${{ secrets.DEPLOY_SIGNING_KEY_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.DEPLOY_CODE_SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.DEPLOY_CODE_SIGNING_KEY_PASSWORD }}
